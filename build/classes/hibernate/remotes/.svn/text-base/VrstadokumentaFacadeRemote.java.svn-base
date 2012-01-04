@@ -1,0 +1,80 @@
+package hibernate.remotes;
+
+import hibernate.entities.Vrstadokumenta;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for VrstadokumentaFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface VrstadokumentaFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved Vrstadokumenta entity.
+	 * All subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Vrstadokumenta entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Vrstadokumenta entity);
+
+	/**
+	 * Delete a persistent Vrstadokumenta entity.
+	 * 
+	 * @param entity
+	 *            Vrstadokumenta entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Vrstadokumenta entity);
+
+	/**
+	 * Persist a previously saved Vrstadokumenta entity and return it or a copy
+	 * of it to the sender. A copy of the Vrstadokumenta entity parameter is
+	 * returned when the JPA persistence mechanism has not previously been
+	 * tracking the updated entity.
+	 * 
+	 * @param entity
+	 *            Vrstadokumenta entity to update
+	 * @return Vrstadokumenta the persisted Vrstadokumenta entity instance, may
+	 *         not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Vrstadokumenta update(Vrstadokumenta entity);
+
+	public Vrstadokumenta findById(Integer id);
+
+	/**
+	 * Find all Vrstadokumenta entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Vrstadokumenta property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Vrstadokumenta> found by query
+	 */
+	public List<Vrstadokumenta> findByProperty(String propertyName, Object value);
+
+	public List<Vrstadokumenta> findByNazivVrsteDokumenta(
+			Object nazivVrsteDokumenta);
+
+	public List<Vrstadokumenta> findByOpisVrsteDokumenta(
+			Object opisVrsteDokumenta);
+
+	public List<Vrstadokumenta> findByVerzija(Object verzija);
+
+	/**
+	 * Find all Vrstadokumenta entities.
+	 * 
+	 * @return List<Vrstadokumenta> all Vrstadokumenta entities
+	 */
+	public List<Vrstadokumenta> findAll();
+}

@@ -1,0 +1,176 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.TipKretanja;
+import hibernate.remotes.TipKretanjaFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity TipKretanja.
+ * 
+ * @see fasades.TipKretanja
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+public class TipKretanjaFacade implements TipKretanjaFacadeRemote{
+	// property constants
+	public static final String NAZIV_TIPA_KRETANJA = "nazivTipaKretanja";
+	public static final String VREDNOST_KRETANJA = "vrednostKretanja";
+	public static final String OPIS_KRETANJA = "opisKretanja";
+	@Resource 
+	private SessionContext ctx;
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved TipKretanja entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            TipKretanja entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(TipKretanja entity) {
+		LogUtil.log("saving TipKretanja instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent TipKretanja entity.
+	 * 
+	 * @param entity
+	 *            TipKretanja entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void delete(TipKretanja entity) {
+		LogUtil.log("deleting TipKretanja instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(TipKretanja.class, entity
+					.getOznakaTipaKretanja());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			ctx.setRollbackOnly();
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved TipKretanja entity and return it or a copy of
+	 * it to the sender. A copy of the TipKretanja entity parameter is returned
+	 * when the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            TipKretanja entity to update
+	 * @return TipKretanja the persisted TipKretanja entity instance, may not be
+	 *         the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public TipKretanja update(TipKretanja entity) {
+		LogUtil.log("updating TipKretanja instance", Level.INFO, null);
+		try {
+			TipKretanja result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public TipKretanja findById(Integer id) {
+		LogUtil.log("finding TipKretanja instance with id: " + id, Level.INFO,
+				null);
+		try {
+			TipKretanja instance = entityManager.find(TipKretanja.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all TipKretanja entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the TipKretanja property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<TipKretanja> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TipKretanja> findByProperty(String propertyName,
+			final Object value) {
+		LogUtil.log("finding TipKretanja instance with property: "
+				+ propertyName + ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from TipKretanja model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<TipKretanja> findByNazivTipaKretanja(Object nazivTipaKretanja) {
+		return findByProperty(NAZIV_TIPA_KRETANJA, nazivTipaKretanja);
+	}
+
+	public List<TipKretanja> findByVrednostKretanja(Object vrednostKretanja) {
+		return findByProperty(VREDNOST_KRETANJA, vrednostKretanja);
+	}
+
+	public List<TipKretanja> findByOpisKretanja(Object opisKretanja) {
+		return findByProperty(OPIS_KRETANJA, opisKretanja);
+	}
+
+	/**
+	 * Find all TipKretanja entities.
+	 * 
+	 * @return List<TipKretanja> all TipKretanja entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TipKretanja> findAll() {
+		LogUtil.log("finding all TipKretanja instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from TipKretanja model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

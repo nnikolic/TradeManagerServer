@@ -1,0 +1,79 @@
+package hibernate.remotes;
+
+import hibernate.entities.Tipproizvoda;
+import hibernate.entities.TipproizvodaId;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for TipproizvodaFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface TipproizvodaFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved Tipproizvoda entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Tipproizvoda entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Tipproizvoda entity);
+
+	/**
+	 * Delete a persistent Tipproizvoda entity.
+	 * 
+	 * @param entity
+	 *            Tipproizvoda entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Tipproizvoda entity);
+
+	/**
+	 * Persist a previously saved Tipproizvoda entity and return it or a copy of
+	 * it to the sender. A copy of the Tipproizvoda entity parameter is returned
+	 * when the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            Tipproizvoda entity to update
+	 * @return Tipproizvoda the persisted Tipproizvoda entity instance, may not
+	 *         be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Tipproizvoda update(Tipproizvoda entity);
+
+	public Tipproizvoda findById(TipproizvodaId id);
+
+	/**
+	 * Find all Tipproizvoda entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Tipproizvoda property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Tipproizvoda> found by query
+	 */
+	public List<Tipproizvoda> findByProperty(String propertyName, Object value);
+
+	public List<Tipproizvoda> findByNazivTipaProizvoda(Object nazivTipaProizvoda);
+
+	public List<Tipproizvoda> findByOpisTipaProizvoda(Object opisTipaProizvoda);
+
+	public List<Tipproizvoda> findByVerzija(Object verzija);
+
+	/**
+	 * Find all Tipproizvoda entities.
+	 * 
+	 * @return List<Tipproizvoda> all Tipproizvoda entities
+	 */
+	public List<Tipproizvoda> findAll();
+}

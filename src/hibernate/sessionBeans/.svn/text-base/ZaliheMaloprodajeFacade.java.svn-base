@@ -1,0 +1,160 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.ZaliheMaloprodaje;
+import hibernate.entities.ZaliheMaloprodajeId;
+import hibernate.remotes.ZaliheMaloprodajeFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity ZaliheMaloprodaje.
+ * 
+ * @see fasades.ZaliheMaloprodaje
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class ZaliheMaloprodajeFacade implements ZaliheMaloprodajeFacadeRemote{
+	// property constants
+	public static final String KOLICINA_PROIZVODA_MP = "kolicinaProizvodaMp";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved ZaliheMaloprodaje entity.
+	 * All subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            ZaliheMaloprodaje entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(ZaliheMaloprodaje entity) {
+		LogUtil.log("saving ZaliheMaloprodaje instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent ZaliheMaloprodaje entity.
+	 * 
+	 * @param entity
+	 *            ZaliheMaloprodaje entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(ZaliheMaloprodaje entity) {
+		LogUtil.log("deleting ZaliheMaloprodaje instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(ZaliheMaloprodaje.class, entity
+					.getId());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved ZaliheMaloprodaje entity and return it or a
+	 * copy of it to the sender. A copy of the ZaliheMaloprodaje entity
+	 * parameter is returned when the JPA persistence mechanism has not
+	 * previously been tracking the updated entity.
+	 * 
+	 * @param entity
+	 *            ZaliheMaloprodaje entity to update
+	 * @return ZaliheMaloprodaje the persisted ZaliheMaloprodaje entity
+	 *         instance, may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public ZaliheMaloprodaje update(ZaliheMaloprodaje entity) {
+		LogUtil.log("updating ZaliheMaloprodaje instance", Level.INFO, null);
+		try {
+			ZaliheMaloprodaje result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public ZaliheMaloprodaje findById(ZaliheMaloprodajeId id) {
+		LogUtil.log("finding ZaliheMaloprodaje instance with id: " + id,
+				Level.INFO, null);
+		try {
+			ZaliheMaloprodaje instance = entityManager.find(
+					ZaliheMaloprodaje.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all ZaliheMaloprodaje entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the ZaliheMaloprodaje property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<ZaliheMaloprodaje> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ZaliheMaloprodaje> findByProperty(String propertyName,
+			final Object value) {
+		LogUtil.log("finding ZaliheMaloprodaje instance with property: "
+				+ propertyName + ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from ZaliheMaloprodaje model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<ZaliheMaloprodaje> findByKolicinaProizvodaMp(
+			Object kolicinaProizvodaMp) {
+		return findByProperty(KOLICINA_PROIZVODA_MP, kolicinaProizvodaMp);
+	}
+
+	/**
+	 * Find all ZaliheMaloprodaje entities.
+	 * 
+	 * @return List<ZaliheMaloprodaje> all ZaliheMaloprodaje entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<ZaliheMaloprodaje> findAll() {
+		LogUtil
+				.log("finding all ZaliheMaloprodaje instances", Level.INFO,
+						null);
+		try {
+			final String queryString = "select model from ZaliheMaloprodaje model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

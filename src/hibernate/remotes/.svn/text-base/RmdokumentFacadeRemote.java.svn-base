@@ -1,0 +1,84 @@
+package hibernate.remotes;
+
+import hibernate.entities.Rmdokument;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for RmdokumentFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface RmdokumentFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved Rmdokument entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Rmdokument entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Rmdokument entity);
+
+	/**
+	 * Delete a persistent Rmdokument entity.
+	 * 
+	 * @param entity
+	 *            Rmdokument entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Rmdokument entity);
+
+	/**
+	 * Persist a previously saved Rmdokument entity and return it or a copy of
+	 * it to the sender. A copy of the Rmdokument entity parameter is returned
+	 * when the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            Rmdokument entity to update
+	 * @return Rmdokument the persisted Rmdokument entity instance, may not be
+	 *         the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Rmdokument update(Rmdokument entity);
+
+	public Rmdokument findById(Integer id);
+
+	/**
+	 * Find all Rmdokument entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Rmdokument property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Rmdokument> found by query
+	 */
+	public List<Rmdokument> findByProperty(String propertyName, Object value);
+
+	public List<Rmdokument> findByUkupanIznosOtpremnice(
+			Object ukupanIznosOtpremnice);
+
+	public List<Rmdokument> findByUkupanPdvOtpremnice(Object ukupanPdvOtpremnice);
+
+	public List<Rmdokument> findByUkupanRabatOptremnice(
+			Object ukupanRabatOptremnice);
+
+	public List<Rmdokument> findByProknjizenDokument(Object proknjizenDokument);
+
+	public List<Rmdokument> findByStorniraniDokument(Object storniraniDokument);
+
+	/**
+	 * Find all Rmdokument entities.
+	 * 
+	 * @return List<Rmdokument> all Rmdokument entities
+	 */
+	public List<Rmdokument> findAll();
+}

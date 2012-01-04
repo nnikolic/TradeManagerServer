@@ -1,0 +1,169 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Telefoni;
+import hibernate.remotes.TelefoniFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Telefoni.
+ * 
+ * @see fasades.Telefoni
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class TelefoniFacade implements TelefoniFacadeRemote{
+	// property constants
+	public static final String VRSTA_TELEFONA = "vrstaTelefona";
+	public static final String BROJ_TELEFONA = "brojTelefona";
+	public static final String OPIS_TELEFONA = "opisTelefona";
+	public static final String VERZIJA = "verzija";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Telefoni entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Telefoni entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Telefoni entity) {
+		LogUtil.log("saving Telefoni instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Telefoni entity.
+	 * 
+	 * @param entity
+	 *            Telefoni entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Telefoni entity) {
+		LogUtil.log("deleting Telefoni instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Telefoni.class, entity
+					.getIdTelefona());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Telefoni entity and return it or a copy of it
+	 * to the sender. A copy of the Telefoni entity parameter is returned when
+	 * the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            Telefoni entity to update
+	 * @return Telefoni the persisted Telefoni entity instance, may not be the
+	 *         same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Telefoni update(Telefoni entity) {
+		LogUtil.log("updating Telefoni instance", Level.INFO, null);
+		try {
+			Telefoni result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Telefoni findById(Integer id) {
+		LogUtil.log("finding Telefoni instance with id: " + id, Level.INFO,
+				null);
+		try {
+			Telefoni instance = entityManager.find(Telefoni.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all Telefoni entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Telefoni property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Telefoni> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Telefoni> findByProperty(String propertyName, final Object value) {
+		LogUtil.log("finding Telefoni instance with property: " + propertyName
+				+ ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Telefoni model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Telefoni> findByVrstaTelefona(Object vrstaTelefona) {
+		return findByProperty(VRSTA_TELEFONA, vrstaTelefona);
+	}
+
+	public List<Telefoni> findByBrojTelefona(Object brojTelefona) {
+		return findByProperty(BROJ_TELEFONA, brojTelefona);
+	}
+
+	public List<Telefoni> findByOpisTelefona(Object opisTelefona) {
+		return findByProperty(OPIS_TELEFONA, opisTelefona);
+	}
+
+	public List<Telefoni> findByVerzija(Object verzija) {
+		return findByProperty(VERZIJA, verzija);
+	}
+
+	/**
+	 * Find all Telefoni entities.
+	 * 
+	 * @return List<Telefoni> all Telefoni entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Telefoni> findAll() {
+		LogUtil.log("finding all Telefoni instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from Telefoni model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

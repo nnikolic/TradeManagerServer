@@ -1,0 +1,40 @@
+10
+
+dir
+1
+https://diplomskiserver.svn.sourceforge.net/svnroot/diplomskiserver/src
+https://diplomskiserver.svn.sourceforge.net/svnroot/diplomskiserver
+
+
+
+2010-04-22T19:39:31.714400Z
+1
+nenad1987
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a60694c1-4463-461d-94cd-d5b99d84ed3f
+
+META-INF
+dir
+
+tools
+dir
+
+hibernate
+dir
+
+exceptions
+dir
+

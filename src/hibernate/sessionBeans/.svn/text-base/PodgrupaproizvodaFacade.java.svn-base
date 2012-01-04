@@ -1,0 +1,169 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Podgrupaproizvoda;
+import hibernate.entities.PodgrupaproizvodaId;
+import hibernate.remotes.PodgrupaproizvodaFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Podgrupaproizvoda.
+ * 
+ * @see fasades.Podgrupaproizvoda
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class PodgrupaproizvodaFacade implements PodgrupaproizvodaFacadeRemote{
+	// property constants
+	public static final String NAZIV_PODGRUPE = "nazivPodgrupe";
+	public static final String OPIS_PODGRUPE = "opisPodgrupe";
+	public static final String VERZIJA = "verzija";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Podgrupaproizvoda entity.
+	 * All subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Podgrupaproizvoda entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Podgrupaproizvoda entity) {
+		LogUtil.log("saving Podgrupaproizvoda instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Podgrupaproizvoda entity.
+	 * 
+	 * @param entity
+	 *            Podgrupaproizvoda entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Podgrupaproizvoda entity) {
+		LogUtil.log("deleting Podgrupaproizvoda instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Podgrupaproizvoda.class, entity
+					.getId());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Podgrupaproizvoda entity and return it or a
+	 * copy of it to the sender. A copy of the Podgrupaproizvoda entity
+	 * parameter is returned when the JPA persistence mechanism has not
+	 * previously been tracking the updated entity.
+	 * 
+	 * @param entity
+	 *            Podgrupaproizvoda entity to update
+	 * @return Podgrupaproizvoda the persisted Podgrupaproizvoda entity
+	 *         instance, may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Podgrupaproizvoda update(Podgrupaproizvoda entity) {
+		LogUtil.log("updating Podgrupaproizvoda instance", Level.INFO, null);
+		try {
+			Podgrupaproizvoda result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Podgrupaproizvoda findById(PodgrupaproizvodaId id) {
+		LogUtil.log("finding Podgrupaproizvoda instance with id: " + id,
+				Level.INFO, null);
+		try {
+			Podgrupaproizvoda instance = entityManager.find(
+					Podgrupaproizvoda.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all Podgrupaproizvoda entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Podgrupaproizvoda property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Podgrupaproizvoda> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Podgrupaproizvoda> findByProperty(String propertyName,
+			final Object value) {
+		LogUtil.log("finding Podgrupaproizvoda instance with property: "
+				+ propertyName + ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Podgrupaproizvoda model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Podgrupaproizvoda> findByNazivPodgrupe(Object nazivPodgrupe) {
+		return findByProperty(NAZIV_PODGRUPE, nazivPodgrupe);
+	}
+
+	public List<Podgrupaproizvoda> findByOpisPodgrupe(Object opisPodgrupe) {
+		return findByProperty(OPIS_PODGRUPE, opisPodgrupe);
+	}
+
+	public List<Podgrupaproizvoda> findByVerzija(Object verzija) {
+		return findByProperty(VERZIJA, verzija);
+	}
+
+	/**
+	 * Find all Podgrupaproizvoda entities.
+	 * 
+	 * @return List<Podgrupaproizvoda> all Podgrupaproizvoda entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Podgrupaproizvoda> findAll() {
+		LogUtil
+				.log("finding all Podgrupaproizvoda instances", Level.INFO,
+						null);
+		try {
+			final String queryString = "select model from Podgrupaproizvoda model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/diplomskiserver/!svn/ver/1/src/hibernate/sessionBeans
+END
+RadnomestoFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/RadnomestoFacade.java
+END
+PlacanjeFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/PlacanjeFacade.java
+END
+FinansijskidokumentFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/FinansijskidokumentFacade.java
+END
+ObracunzaradeFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/ObracunzaradeFacade.java
+END
+OpstineFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/OpstineFacade.java
+END
+VrstaanalitikeFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/VrstaanalitikeFacade.java
+END
+RmdokumentFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/RmdokumentFacade.java
+END
+TehnickekarakteristikeproizvodaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/TehnickekarakteristikeproizvodaFacade.java
+END
+DesnakontaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/DesnakontaFacade.java
+END
+DrzavaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/DrzavaFacade.java
+END
+RadnidaniFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/RadnidaniFacade.java
+END
+RabatFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/RabatFacade.java
+END
+PdvFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/PdvFacade.java
+END
+NaseljenaMestaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/NaseljenaMestaFacade.java
+END
+StavkadokumentaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/StavkadokumentaFacade.java
+END
+NasaFirmaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/NasaFirmaFacade.java
+END
+ZaradaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/ZaradaFacade.java
+END
+ModelknjizenjaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/ModelknjizenjaFacade.java
+END
+TelefoniFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/TelefoniFacade.java
+END
+VrstadokumentaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/VrstadokumentaFacade.java
+END
+FamilijaproizvodaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/FamilijaproizvodaFacade.java
+END
+ProizvodFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/ProizvodFacade.java
+END
+GrupaproizvodaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/GrupaproizvodaFacade.java
+END
+TipKretanjaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/TipKretanjaFacade.java
+END
+ZaliheFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/ZaliheFacade.java
+END
+PodgrupaproizvodaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/PodgrupaproizvodaFacade.java
+END
+JedinicamereFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/JedinicamereFacade.java
+END
+MaloprodajniObjekatFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/MaloprodajniObjekatFacade.java
+END
+SintetickikontoFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/SintetickikontoFacade.java
+END
+SkladisteFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/SkladisteFacade.java
+END
+AnalitickikontoFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/AnalitickikontoFacade.java
+END
+LevaKontaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/LevaKontaFacade.java
+END
+SessionBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/diplomskiserver/!svn/ver/11/src/hibernate/sessionBeans/SessionBean.java
+END
+TipproizvodaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/TipproizvodaFacade.java
+END
+ZaliheMaloprodajeFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/ZaliheMaloprodajeFacade.java
+END
+LogUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/diplomskiserver/!svn/ver/1/src/hibernate/sessionBeans/LogUtil.java
+END
+FirmaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svnroot/diplomskiserver/!svn/ver/9/src/hibernate/sessionBeans/FirmaFacade.java
+END
+AdresaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/AdresaFacade.java
+END
+StrukturaOpstineFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/StrukturaOpstineFacade.java
+END
+StavkafinansijskogdokumentaFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/diplomskiserver/!svn/ver/2/src/hibernate/sessionBeans/StavkafinansijskogdokumentaFacade.java
+END
+RadnikFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svnroot/diplomskiserver/!svn/ver/11/src/hibernate/sessionBeans/RadnikFacade.java
+END

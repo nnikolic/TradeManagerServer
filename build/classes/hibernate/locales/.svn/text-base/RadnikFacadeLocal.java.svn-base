@@ -1,0 +1,85 @@
+package hibernate.locales;
+
+import hibernate.entities.Radnik;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+/**
+ * Remote interface for RadnikFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Local
+public interface RadnikFacadeLocal {
+	/**
+	 * Perform an initial save of a previously unsaved Radnik entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Radnik entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Radnik entity);
+
+	/**
+	 * Delete a persistent Radnik entity.
+	 * 
+	 * @param entity
+	 *            Radnik entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Radnik entity);
+
+	/**
+	 * Persist a previously saved Radnik entity and return it or a copy of it to
+	 * the sender. A copy of the Radnik entity parameter is returned when the
+	 * JPA persistence mechanism has not previously been tracking the updated
+	 * entity.
+	 * 
+	 * @param entity
+	 *            Radnik entity to update
+	 * @return Radnik the persisted Radnik entity instance, may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Radnik update(Radnik entity);
+
+	public Radnik findById(Integer id);
+
+	public Radnik findByUsernamePass(String username, String pass);
+	
+	/**
+	 * Find all Radnik entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Radnik property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Radnik> found by query
+	 */
+	public List<Radnik> findByProperty(String propertyName, Object value);
+
+	public List<Radnik> findByImeRadnika(Object imeRadnika);
+
+	public List<Radnik> findByPrezimeRadnika(Object prezimeRadnika);
+
+	public List<Radnik> findByUsernameRadnika(Object usernameRadnika);
+
+	public List<Radnik> findByPasswordRadnika(Object passwordRadnika);
+
+	public List<Radnik> findByJmbgRadnika(Object jmbgRadnika);
+
+	public List<Radnik> findByVerzija(Object verzija);
+
+	/**
+	 * Find all Radnik entities.
+	 * 
+	 * @return List<Radnik> all Radnik entities
+	 */
+	public List<Radnik> findAll();
+}

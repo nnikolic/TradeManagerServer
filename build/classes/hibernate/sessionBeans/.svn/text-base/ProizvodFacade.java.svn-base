@@ -1,0 +1,190 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Proizvod;
+import hibernate.entities.ProizvodId;
+import hibernate.remotes.ProizvodFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Proizvod.
+ * 
+ * @see fasades.Proizvod
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class ProizvodFacade implements ProizvodFacadeRemote{
+	// property constants
+	public static final String SIFRA_PROZIVODA = "sifraProzivoda";
+	public static final String NAZIV_PROIZVODA = "nazivProizvoda";
+	public static final String OPIS_PROIZVODA = "opisProizvoda";
+	public static final String MP_CENA_PROIZVODA = "mpCenaProizvoda";
+	public static final String VP_CENA_PROIZVODA = "vpCenaProizvoda";
+	public static final String JEDINCA_MERE_UPAKOVANJU = "jedincaMereUpakovanju";
+	public static final String URL_SLIKE = "urlSlike";
+	public static final String VERZIJA = "verzija";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Proizvod entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Proizvod entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Proizvod entity) {
+		LogUtil.log("saving Proizvod instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Proizvod entity.
+	 * 
+	 * @param entity
+	 *            Proizvod entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Proizvod entity) {
+		LogUtil.log("deleting Proizvod instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Proizvod.class, entity.getId());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Proizvod entity and return it or a copy of it
+	 * to the sender. A copy of the Proizvod entity parameter is returned when
+	 * the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            Proizvod entity to update
+	 * @return Proizvod the persisted Proizvod entity instance, may not be the
+	 *         same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Proizvod update(Proizvod entity) {
+		LogUtil.log("updating Proizvod instance", Level.INFO, null);
+		try {
+			Proizvod result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Proizvod findById(ProizvodId id) {
+		LogUtil.log("finding Proizvod instance with id: " + id, Level.INFO,
+				null);
+		try {
+			Proizvod instance = entityManager.find(Proizvod.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all Proizvod entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Proizvod property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Proizvod> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Proizvod> findByProperty(String propertyName, final Object value) {
+		LogUtil.log("finding Proizvod instance with property: " + propertyName
+				+ ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Proizvod model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Proizvod> findBySifraProzivoda(Object sifraProzivoda) {
+		return findByProperty(SIFRA_PROZIVODA, sifraProzivoda);
+	}
+
+	public List<Proizvod> findByNazivProizvoda(Object nazivProizvoda) {
+		return findByProperty(NAZIV_PROIZVODA, nazivProizvoda);
+	}
+
+	public List<Proizvod> findByOpisProizvoda(Object opisProizvoda) {
+		return findByProperty(OPIS_PROIZVODA, opisProizvoda);
+	}
+
+	public List<Proizvod> findByMpCenaProizvoda(Object mpCenaProizvoda) {
+		return findByProperty(MP_CENA_PROIZVODA, mpCenaProizvoda);
+	}
+
+	public List<Proizvod> findByVpCenaProizvoda(Object vpCenaProizvoda) {
+		return findByProperty(VP_CENA_PROIZVODA, vpCenaProizvoda);
+	}
+
+	public List<Proizvod> findByJedincaMereUpakovanju(
+			Object jedincaMereUpakovanju) {
+		return findByProperty(JEDINCA_MERE_UPAKOVANJU, jedincaMereUpakovanju);
+	}
+
+	public List<Proizvod> findByUrlSlike(Object urlSlike) {
+		return findByProperty(URL_SLIKE, urlSlike);
+	}
+
+	public List<Proizvod> findByVerzija(Object verzija) {
+		return findByProperty(VERZIJA, verzija);
+	}
+
+	/**
+	 * Find all Proizvod entities.
+	 * 
+	 * @return List<Proizvod> all Proizvod entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Proizvod> findAll() {
+		LogUtil.log("finding all Proizvod instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from Proizvod model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

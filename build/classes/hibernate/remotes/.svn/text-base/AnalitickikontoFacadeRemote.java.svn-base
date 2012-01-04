@@ -1,0 +1,78 @@
+package hibernate.remotes;
+
+import hibernate.entities.Analitickikonto;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for AnalitickikontoFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface AnalitickikontoFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved Analitickikonto entity.
+	 * All subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Analitickikonto entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Analitickikonto entity);
+
+	/**
+	 * Delete a persistent Analitickikonto entity.
+	 * 
+	 * @param entity
+	 *            Analitickikonto entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Analitickikonto entity);
+
+	/**
+	 * Persist a previously saved Analitickikonto entity and return it or a copy
+	 * of it to the sender. A copy of the Analitickikonto entity parameter is
+	 * returned when the JPA persistence mechanism has not previously been
+	 * tracking the updated entity.
+	 * 
+	 * @param entity
+	 *            Analitickikonto entity to update
+	 * @return Analitickikonto the persisted Analitickikonto entity instance,
+	 *         may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Analitickikonto update(Analitickikonto entity);
+
+	public Analitickikonto findById(Integer id);
+
+	/**
+	 * Find all Analitickikonto entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Analitickikonto property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Analitickikonto> found by query
+	 */
+	public List<Analitickikonto> findByProperty(String propertyName,
+			Object value);
+
+	public List<Analitickikonto> findByNazivAnalitickogKonta(
+			Object nazivAnalitickogKonta);
+
+	public List<Analitickikonto> findByVerzija(Object verzija);
+
+	/**
+	 * Find all Analitickikonto entities.
+	 * 
+	 * @return List<Analitickikonto> all Analitickikonto entities
+	 */
+	public List<Analitickikonto> findAll();
+}

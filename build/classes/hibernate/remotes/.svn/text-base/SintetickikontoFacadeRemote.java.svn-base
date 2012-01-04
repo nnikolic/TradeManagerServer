@@ -1,0 +1,84 @@
+package hibernate.remotes;
+
+import hibernate.entities.Sintetickikonto;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for SintetickikontoFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface SintetickikontoFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved Sintetickikonto entity.
+	 * All subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Sintetickikonto entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Sintetickikonto entity);
+
+	/**
+	 * Delete a persistent Sintetickikonto entity.
+	 * 
+	 * @param entity
+	 *            Sintetickikonto entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Sintetickikonto entity);
+
+	/**
+	 * Persist a previously saved Sintetickikonto entity and return it or a copy
+	 * of it to the sender. A copy of the Sintetickikonto entity parameter is
+	 * returned when the JPA persistence mechanism has not previously been
+	 * tracking the updated entity.
+	 * 
+	 * @param entity
+	 *            Sintetickikonto entity to update
+	 * @return Sintetickikonto the persisted Sintetickikonto entity instance,
+	 *         may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Sintetickikonto update(Sintetickikonto entity);
+
+	public Sintetickikonto findById(Integer id);
+
+	/**
+	 * Find all Sintetickikonto entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Sintetickikonto property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Sintetickikonto> found by query
+	 */
+	public List<Sintetickikonto> findByProperty(String propertyName,
+			Object value);
+
+	public List<Sintetickikonto> findByNaizvSintetickogKonta(
+			Object naizvSintetickogKonta);
+
+	public List<Sintetickikonto> findByOpisSintetickogKonta(
+			Object opisSintetickogKonta);
+
+	public List<Sintetickikonto> findByKontoBilanskaUspeha(
+			Object kontoBilanskaUspeha);
+
+	public List<Sintetickikonto> findByVerzija(Object verzija);
+
+	/**
+	 * Find all Sintetickikonto entities.
+	 * 
+	 * @return List<Sintetickikonto> all Sintetickikonto entities
+	 */
+	public List<Sintetickikonto> findAll();
+}

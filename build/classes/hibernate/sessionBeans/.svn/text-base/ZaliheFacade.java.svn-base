@@ -1,0 +1,152 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Zalihe;
+import hibernate.entities.ZaliheId;
+import hibernate.remotes.ZaliheFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Zalihe.
+ * 
+ * @see fasades.Zalihe
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class ZaliheFacade implements ZaliheFacadeRemote{
+	// property constants
+	public static final String KOLICINA_PROIZVODA = "kolicinaProizvoda";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Zalihe entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Zalihe entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Zalihe entity) {
+		LogUtil.log("saving Zalihe instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Zalihe entity.
+	 * 
+	 * @param entity
+	 *            Zalihe entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Zalihe entity) {
+		LogUtil.log("deleting Zalihe instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Zalihe.class, entity.getId());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Zalihe entity and return it or a copy of it to
+	 * the sender. A copy of the Zalihe entity parameter is returned when the
+	 * JPA persistence mechanism has not previously been tracking the updated
+	 * entity.
+	 * 
+	 * @param entity
+	 *            Zalihe entity to update
+	 * @return Zalihe the persisted Zalihe entity instance, may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Zalihe update(Zalihe entity) {
+		LogUtil.log("updating Zalihe instance", Level.INFO, null);
+		try {
+			Zalihe result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Zalihe findById(ZaliheId id) {
+		LogUtil.log("finding Zalihe instance with id: " + id, Level.INFO, null);
+		try {
+			Zalihe instance = entityManager.find(Zalihe.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all Zalihe entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Zalihe property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Zalihe> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Zalihe> findByProperty(String propertyName, final Object value) {
+		LogUtil.log("finding Zalihe instance with property: " + propertyName
+				+ ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Zalihe model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Zalihe> findByKolicinaProizvoda(Object kolicinaProizvoda) {
+		return findByProperty(KOLICINA_PROIZVODA, kolicinaProizvoda);
+	}
+
+	/**
+	 * Find all Zalihe entities.
+	 * 
+	 * @return List<Zalihe> all Zalihe entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Zalihe> findAll() {
+		LogUtil.log("finding all Zalihe instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from Zalihe model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

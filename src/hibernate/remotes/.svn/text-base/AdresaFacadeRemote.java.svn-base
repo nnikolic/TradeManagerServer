@@ -1,0 +1,77 @@
+package hibernate.remotes;
+
+import hibernate.entities.Adresa;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for AdresaFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface AdresaFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved Adresa entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Adresa entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Adresa entity);
+
+	/**
+	 * Delete a persistent Adresa entity.
+	 * 
+	 * @param entity
+	 *            Adresa entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Adresa entity);
+
+	/**
+	 * Persist a previously saved Adresa entity and return it or a copy of it to
+	 * the sender. A copy of the Adresa entity parameter is returned when the
+	 * JPA persistence mechanism has not previously been tracking the updated
+	 * entity.
+	 * 
+	 * @param entity
+	 *            Adresa entity to update
+	 * @return Adresa the persisted Adresa entity instance, may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Adresa update(Adresa entity);
+
+	public Adresa findById(Integer id);
+
+	/**
+	 * Find all Adresa entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Adresa property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Adresa> found by query
+	 */
+	public List<Adresa> findByProperty(String propertyName, Object value);
+
+	public List<Adresa> findByUlica(Object ulica);
+
+	public List<Adresa> findByBrojAdrese(Object brojAdrese);
+
+	public List<Adresa> findByVerzija(Object verzija);
+
+	/**
+	 * Find all Adresa entities.
+	 * 
+	 * @return List<Adresa> all Adresa entities
+	 */
+	public List<Adresa> findAll();
+}

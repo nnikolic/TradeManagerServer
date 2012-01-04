@@ -1,0 +1,72 @@
+package hibernate.remotes;
+
+import hibernate.entities.LevaKonta;
+
+import java.util.List;
+
+import javax.ejb.Remote;
+
+/**
+ * Remote interface for LevaKontaFacade.
+ * 
+ * @author MyEclipse Persistence Tools
+ */
+@Remote
+public interface LevaKontaFacadeRemote {
+	/**
+	 * Perform an initial save of a previously unsaved LevaKonta entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            LevaKonta entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(LevaKonta entity);
+
+	/**
+	 * Delete a persistent LevaKonta entity.
+	 * 
+	 * @param entity
+	 *            LevaKonta entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(LevaKonta entity);
+
+	/**
+	 * Persist a previously saved LevaKonta entity and return it or a copy of it
+	 * to the sender. A copy of the LevaKonta entity parameter is returned when
+	 * the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            LevaKonta entity to update
+	 * @return LevaKonta the persisted LevaKonta entity instance, may not be the
+	 *         same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public LevaKonta update(LevaKonta entity);
+
+	public LevaKonta findById(Integer id);
+
+	/**
+	 * Find all LevaKonta entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the LevaKonta property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<LevaKonta> found by query
+	 */
+	public List<LevaKonta> findByProperty(String propertyName, Object value);
+
+	/**
+	 * Find all LevaKonta entities.
+	 * 
+	 * @return List<LevaKonta> all LevaKonta entities
+	 */
+	public List<LevaKonta> findAll();
+}

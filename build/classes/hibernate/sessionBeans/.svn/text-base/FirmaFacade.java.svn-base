@@ -1,0 +1,213 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Firma;
+import hibernate.entities.Radnik;
+import hibernate.remotes.FirmaFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Firma.
+ * 
+ * @see fasades.Firma
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+public class FirmaFacade implements FirmaFacadeRemote{
+	// property constants
+	public static final String NAZIV_FIRME = "nazivFirme";
+	public static final String OPIS_FIRME = "opisFirme";
+	public static final String PIB_FIRME = "pibFirme";
+	public static final String MATICNI_BROJ_FIRME = "maticniBrojFirme";
+	public static final String IME_VLASNIKA_FIRME = "imeVlasnikaFirme";
+	public static final String PREZIME_VLASNIKA_FIRME = "prezimeVlasnikaFirme";
+	public static final String VERZIJA = "verzija";
+
+	@Resource 
+	private SessionContext ctx;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Firma entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Firma entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void save(Firma entity) {
+		LogUtil.log("saving Firma instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			ctx.setRollbackOnly();
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Firma entity.
+	 * 
+	 * @param entity
+	 *            Firma entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void delete(Firma entity) {
+		LogUtil.log("deleting Firma instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Firma.class, entity
+					.getOznakaFirme());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			ctx.setRollbackOnly();
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Firma entity and return it or a copy of it to
+	 * the sender. A copy of the Firma entity parameter is returned when the JPA
+	 * persistence mechanism has not previously been tracking the updated
+	 * entity.
+	 * 
+	 * @param entity
+	 *            Firma entity to update
+	 * @return Firma the persisted Firma entity instance, may not be the same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public Firma update(Firma entity) {
+		LogUtil.log("updating Firma instance", Level.INFO, null);
+		try {
+			Firma result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			ctx.setRollbackOnly();
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Firma findById(Integer id) {
+		LogUtil.log("finding Firma instance with id: " + id, Level.INFO, null);
+		try {
+			Firma instance = entityManager.find(Firma.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	@Override
+	public Firma findFullById(Integer id) {
+		LogUtil.log("finding Firma instance with id: " + id, Level.INFO, null);
+		try {
+			final String queryString = "select f from Firma f join fetch f.analitickikonto a where f.oznakaFirme = :id";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("id", id);
+			return (Firma) query.getSingleResult();
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+	
+	/**
+	 * Find all Firma entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Firma property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Firma> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Firma> findByProperty(String propertyName, final Object value) {
+		LogUtil.log("finding Firma instance with property: " + propertyName
+				+ ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Firma model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Firma> findByNazivFirme(Object nazivFirme) {
+		return findByProperty(NAZIV_FIRME, nazivFirme);
+	}
+
+	public List<Firma> findByOpisFirme(Object opisFirme) {
+		return findByProperty(OPIS_FIRME, opisFirme);
+	}
+
+	public List<Firma> findByPibFirme(Object pibFirme) {
+		return findByProperty(PIB_FIRME, pibFirme);
+	}
+
+	public List<Firma> findByMaticniBrojFirme(Object maticniBrojFirme) {
+		return findByProperty(MATICNI_BROJ_FIRME, maticniBrojFirme);
+	}
+
+	public List<Firma> findByImeVlasnikaFirme(Object imeVlasnikaFirme) {
+		return findByProperty(IME_VLASNIKA_FIRME, imeVlasnikaFirme);
+	}
+
+	public List<Firma> findByPrezimeVlasnikaFirme(Object prezimeVlasnikaFirme) {
+		return findByProperty(PREZIME_VLASNIKA_FIRME, prezimeVlasnikaFirme);
+	}
+
+	public List<Firma> findByVerzija(Object verzija) {
+		return findByProperty(VERZIJA, verzija);
+	}
+
+	/**
+	 * Find all Firma entities.
+	 * 
+	 * @return List<Firma> all Firma entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Firma> findAll() {
+		LogUtil.log("finding all Firma instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from Firma model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

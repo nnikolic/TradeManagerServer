@@ -1,0 +1,160 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Opstine;
+import hibernate.entities.OpstineId;
+import hibernate.remotes.OpstineFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Opstine.
+ * 
+ * @see fasades.Opstine
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class OpstineFacade implements OpstineFacadeRemote{
+	// property constants
+	public static final String OP_NAZIV = "opNaziv";
+	public static final String VERZIJA4 = "verzija4";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Opstine entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Opstine entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Opstine entity) {
+		LogUtil.log("saving Opstine instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Opstine entity.
+	 * 
+	 * @param entity
+	 *            Opstine entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Opstine entity) {
+		LogUtil.log("deleting Opstine instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Opstine.class, entity.getId());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Opstine entity and return it or a copy of it
+	 * to the sender. A copy of the Opstine entity parameter is returned when
+	 * the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            Opstine entity to update
+	 * @return Opstine the persisted Opstine entity instance, may not be the
+	 *         same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Opstine update(Opstine entity) {
+		LogUtil.log("updating Opstine instance", Level.INFO, null);
+		try {
+			Opstine result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Opstine findById(OpstineId id) {
+		LogUtil
+				.log("finding Opstine instance with id: " + id, Level.INFO,
+						null);
+		try {
+			Opstine instance = entityManager.find(Opstine.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all Opstine entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Opstine property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Opstine> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Opstine> findByProperty(String propertyName, final Object value) {
+		LogUtil.log("finding Opstine instance with property: " + propertyName
+				+ ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Opstine model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Opstine> findByOpNaziv(Object opNaziv) {
+		return findByProperty(OP_NAZIV, opNaziv);
+	}
+
+	public List<Opstine> findByVerzija4(Object verzija4) {
+		return findByProperty(VERZIJA4, verzija4);
+	}
+
+	/**
+	 * Find all Opstine entities.
+	 * 
+	 * @return List<Opstine> all Opstine entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Opstine> findAll() {
+		LogUtil.log("finding all Opstine instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from Opstine model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}

@@ -1,0 +1,165 @@
+package hibernate.sessionBeans;
+
+import hibernate.entities.Skladiste;
+import hibernate.remotes.SkladisteFacadeRemote;
+
+import java.util.List;
+import java.util.logging.Level;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ * Facade for entity Skladiste.
+ * 
+ * @see fasades.Skladiste
+ * @author MyEclipse Persistence Tools
+ */
+@Stateless
+public class SkladisteFacade implements SkladisteFacadeRemote{
+	// property constants
+	public static final String NAZIV_SKLADISTA = "nazivSkladista";
+	public static final String OPIS_SKLADISTA = "opisSkladista";
+	public static final String VERZIJA = "verzija";
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	/**
+	 * Perform an initial save of a previously unsaved Skladiste entity. All
+	 * subsequent persist actions of this entity should use the #update()
+	 * method.
+	 * 
+	 * @param entity
+	 *            Skladiste entity to persist
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void save(Skladiste entity) {
+		LogUtil.log("saving Skladiste instance", Level.INFO, null);
+		try {
+			entityManager.persist(entity);
+			LogUtil.log("save successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("save failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Delete a persistent Skladiste entity.
+	 * 
+	 * @param entity
+	 *            Skladiste entity to delete
+	 * @throws RuntimeException
+	 *             when the operation fails
+	 */
+	public void delete(Skladiste entity) {
+		LogUtil.log("deleting Skladiste instance", Level.INFO, null);
+		try {
+			entity = entityManager.getReference(Skladiste.class, entity
+					.getIdSkladista());
+			entityManager.remove(entity);
+			LogUtil.log("delete successful", Level.INFO, null);
+		} catch (RuntimeException re) {
+			LogUtil.log("delete failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Persist a previously saved Skladiste entity and return it or a copy of it
+	 * to the sender. A copy of the Skladiste entity parameter is returned when
+	 * the JPA persistence mechanism has not previously been tracking the
+	 * updated entity.
+	 * 
+	 * @param entity
+	 *            Skladiste entity to update
+	 * @return Skladiste the persisted Skladiste entity instance, may not be the
+	 *         same
+	 * @throws RuntimeException
+	 *             if the operation fails
+	 */
+	public Skladiste update(Skladiste entity) {
+		LogUtil.log("updating Skladiste instance", Level.INFO, null);
+		try {
+			Skladiste result = entityManager.merge(entity);
+			LogUtil.log("update successful", Level.INFO, null);
+			return result;
+		} catch (RuntimeException re) {
+			LogUtil.log("update failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public Skladiste findById(Integer id) {
+		LogUtil.log("finding Skladiste instance with id: " + id, Level.INFO,
+				null);
+		try {
+			Skladiste instance = entityManager.find(Skladiste.class, id);
+			return instance;
+		} catch (RuntimeException re) {
+			LogUtil.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	/**
+	 * Find all Skladiste entities with a specific property value.
+	 * 
+	 * @param propertyName
+	 *            the name of the Skladiste property to query
+	 * @param value
+	 *            the property value to match
+	 * @return List<Skladiste> found by query
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Skladiste> findByProperty(String propertyName,
+			final Object value) {
+		LogUtil.log("finding Skladiste instance with property: " + propertyName
+				+ ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from Skladiste model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find by property name failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+	public List<Skladiste> findByNazivSkladista(Object nazivSkladista) {
+		return findByProperty(NAZIV_SKLADISTA, nazivSkladista);
+	}
+
+	public List<Skladiste> findByOpisSkladista(Object opisSkladista) {
+		return findByProperty(OPIS_SKLADISTA, opisSkladista);
+	}
+
+	public List<Skladiste> findByVerzija(Object verzija) {
+		return findByProperty(VERZIJA, verzija);
+	}
+
+	/**
+	 * Find all Skladiste entities.
+	 * 
+	 * @return List<Skladiste> all Skladiste entities
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Skladiste> findAll() {
+		LogUtil.log("finding all Skladiste instances", Level.INFO, null);
+		try {
+			final String queryString = "select model from Skladiste model";
+			Query query = entityManager.createQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			LogUtil.log("find all failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
+
+}
