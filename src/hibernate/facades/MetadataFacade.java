@@ -24,8 +24,8 @@ import hibernate.sessionBeans.LogUtil;
 @Stateless
 public class MetadataFacade implements MetadataFacadeRemote {
 
-	public static String METADATA_URL="C:\\Users\\Nenad\\Documents\\Raf\\Java\\Diplomski\\DiplomskiMetadata\\src\\";
-//	public static String METADATA_URL="C:\\nik_data\\metadata\\DiplomskiMetadata\\src\\";
+	public static String METADATA_URL="C:\\Users\\Nenad\\Documents\\Raf\\Java\\Diplomski\\TradeManagerMetadata\\src\\";
+//	public static String METADATA_URL="C:\\nik_data\\metadata\\TradeManagerMetadata\\src\\";
 
 	@Override
 	public ServerResponse getEntityXml(String filename) {
