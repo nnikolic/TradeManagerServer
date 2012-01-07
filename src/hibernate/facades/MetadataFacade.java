@@ -25,6 +25,7 @@ import hibernate.sessionBeans.LogUtil;
 public class MetadataFacade implements MetadataFacadeRemote {
 
 	public static String METADATA_URL="C:\\Users\\Nenad\\Documents\\Raf\\Java\\Diplomski\\TradeManagerMetadata\\src\\";
+//	public static String METADATA_URL="C:\\Users\\Milan\\workspace\\TradeManagerMetadata\\src\\";
 //	public static String METADATA_URL="C:\\nik_data\\metadata\\TradeManagerMetadata\\src\\";
 
 	@Override
