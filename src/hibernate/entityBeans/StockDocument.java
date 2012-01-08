@@ -48,12 +48,13 @@ public class StockDocument implements Serializable, EntityObject{
 	
 	private Set<StockDocumentItem> items = null;
 	
-	private List<StockDocumentPayment> payments = null;
+	private Set<StockDocumentPayment> payments = null;
 	
 	private Boolean canceled = Boolean.FALSE;
 	
 	public StockDocument(){
 		items = new HashSet<StockDocumentItem>();
+		payments = new HashSet<StockDocumentPayment>();
 	}
 	
 	@Id
@@ -166,11 +167,11 @@ public class StockDocument implements Serializable, EntityObject{
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public List<StockDocumentPayment> getPayments() {
+	public Set<StockDocumentPayment> getPayments() {
 		return payments;
 	}
 	
-	public void setPayments(List<StockDocumentPayment> payments) {
+	public void setPayments(Set<StockDocumentPayment> payments) {
 		this.payments = payments;
 	}
 	
