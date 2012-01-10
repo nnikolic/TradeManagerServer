@@ -46,7 +46,7 @@ public class SalesPriceItem implements Serializable, EntityObject{
 		ID = iD;
 	}
 	
-	@ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch=FetchType.EAGER)
+	@ManyToOne(cascade={}, fetch=FetchType.EAGER)
 	public Product getProduct() {
 		return product;
 	}

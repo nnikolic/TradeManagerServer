@@ -73,7 +73,7 @@ public class StockDocumentItem implements Serializable, EntityObject{
 		this.basicPrice = basicPrice;
 	}
 	
-	@ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch=FetchType.EAGER)
+	@ManyToOne(cascade={}, fetch=FetchType.EAGER)
 	public SalesPriceItem getSalesPriceItem() {
 		return salesPriceItem;
 	}
