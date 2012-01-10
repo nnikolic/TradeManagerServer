@@ -102,15 +102,15 @@ public class ProductFamily implements Serializable, EntityObject{
 //	}
 	
 	public void setProducts(Set<Product> products) {
-		try {
-			if (products!=null && products.size()>0) {
-				Iterator<Product> iter = products.iterator();
-				while (iter.hasNext()) {
-					iter.next().setFamily(this);
-				}
-			}
-		} catch (Exception e) {
-		}
+//		try {
+//			if (products!=null && products.size()>0) {
+//				Iterator<Product> iter = products.iterator();
+//				while (iter.hasNext()) {
+//					iter.next().setFamily(this);
+//				}
+//			}
+//		} catch (Exception e) {
+//		}
 		this.products = products;
 	}
 }

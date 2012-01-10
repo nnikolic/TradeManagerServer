@@ -3,9 +3,9 @@ package hibernate.entityBeans;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -141,7 +141,7 @@ public class StockDocument implements Serializable, EntityObject{
 		this.businessPartner = businessPartner;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<StockDocumentItem> getItems() {
 		return items;
 	}
@@ -166,7 +166,7 @@ public class StockDocument implements Serializable, EntityObject{
 		this.paymentDay = paymentDay;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Set<StockDocumentPayment> getPayments() {
 		return payments;
 	}
@@ -182,6 +182,40 @@ public class StockDocument implements Serializable, EntityObject{
 	
 	public void setCanceled(Boolean canceled) {
 		this.canceled = canceled;
+	}
+	
+	@Transient
+	public BigDecimal getTotalPrice(){
+		BigDecimal price = new BigDecimal("0.00");
+		price.setScale(2, BigDecimal.ROUND_CEILING);
+		
+		for(StockDocumentItem si: getItems()){
+			price = price.add(new BigDecimal((si.getBasicPrice() + si.getPdvPrice())));
+		}
+		
+		return price;
+	}
+	
+	@Transient
+	public BigDecimal getTotalPayments(){
+		BigDecimal totalPayments = new BigDecimal("0.00");
+		totalPayments.setScale(2, BigDecimal.ROUND_CEILING);
+		
+		if(getPayments()!=null){
+			for(StockDocumentPayment pay: getPayments()){
+				totalPayments = totalPayments.add(new BigDecimal(pay.getAmount()));
+			}
+		}
+		
+		return totalPayments;
+	}
+	
+	@Transient
+	public Boolean getPaid() {
+		BigDecimal diff = new BigDecimal("0.00");
+		diff.setScale(2, BigDecimal.ROUND_CEILING);
+		diff = getTotalPrice().subtract(getTotalPayments());
+		return Math.abs(diff.doubleValue()) <= 1;
 	}
 	
 	@Override
